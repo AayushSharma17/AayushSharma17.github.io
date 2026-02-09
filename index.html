@@ -1,653 +1,274 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aayush Sharma — AI / ML</title>
-  <meta name="description" content="Aayush Sharma — M.Sc. Artificial Intelligence (FAU). Machine Learning, Data Analytics, Python." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aayush Sharma</title>
 
-  <style>
-    :root{
-      --bg:#050816;
-      --text:#EAF0FF;
-      --muted:rgba(234,240,255,.68);
-      --line:rgba(234,240,255,.14);
-      --accent:#43d1ff;
-      --accent2:#8b5cf6;
-      --max:1080px;
-      --radius:18px;
-    }
+<style>
+:root{
+  --bg-dark:#02040a;
+  --card-bg:rgba(10,14,28,.58);
+  --text-main:rgba(255,255,255,.95);
+  --text-muted:rgba(200,210,230,.72);
+  --accent-blue:#8fbcd4;
+  --accent-purple:#9b8cd8;
+  --border-soft:rgba(255,255,255,.14);
+}
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font:16px/1.7 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:var(--bg);
-      overflow-x:hidden;
-    }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-    /* --- Galaxy + stars (animated, subtle) --- */
-    body::before{
-      content:"";
-      position:fixed; inset:-15%;
-      z-index:-5;
-      background:
-        radial-gradient(1100px 650px at 12% 10%, rgba(67,209,255,.16), transparent 55%),
-        radial-gradient(900px 600px at 90% 18%, rgba(139,92,246,.14), transparent 58%),
-        radial-gradient(900px 700px at 55% 85%, rgba(56,189,248,.10), transparent 60%),
-        linear-gradient(180deg, #050816 0%, #050816 100%);
-      animation: nebulaDrift 22s ease-in-out infinite alternate;
-      transform: translate3d(0,0,0);
-      filter:saturate(1.05);
-    }
-    body::after{
-      content:"";
-      position:fixed; inset:0;
-      z-index:-4;
-      pointer-events:none;
-      background:
-        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.55), transparent 60%),
-        radial-gradient(1px 1px at 22% 80%, rgba(255,255,255,.35), transparent 60%),
-        radial-gradient(1px 1px at 36% 32%, rgba(255,255,255,.50), transparent 60%),
-        radial-gradient(1px 1px at 52% 68%, rgba(255,255,255,.30), transparent 60%),
-        radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,.55), transparent 60%),
-        radial-gradient(1px 1px at 82% 62%, rgba(255,255,255,.28), transparent 60%),
-        radial-gradient(1px 1px at 92% 34%, rgba(255,255,255,.45), transparent 60%),
-        radial-gradient(1px 1px at 15% 48%, rgba(255,255,255,.26), transparent 60%),
-        radial-gradient(1px 1px at 40% 92%, rgba(255,255,255,.40), transparent 60%),
-        radial-gradient(1px 1px at 64% 44%, rgba(255,255,255,.26), transparent 60%),
-        radial-gradient(1px 1px at 78% 88%, rgba(255,255,255,.30), transparent 60%),
-        radial-gradient(1px 1px at 6%  66%, rgba(255,255,255,.42), transparent 60%);
-      opacity:.55;
-      animation: twinkle 6s ease-in-out infinite;
-    }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  overflow-x:hidden;
+}
 
-    /* Tech grid overlay */
-    .grid-overlay{
-      position:fixed; inset:0;
-      z-index:-3;
-      pointer-events:none;
-      background:
-        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 72px 72px;
-      opacity:.22;
-      mask-image: radial-gradient(circle at 50% 22%, rgba(0,0,0,.90) 0%, rgba(0,0,0,.35) 48%, rgba(0,0,0,0) 74%);
-      animation: gridShift 18s linear infinite;
-    }
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  padding:18px;
+  z-index:10;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+}
+nav a{
+  color:var(--text-muted);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+nav a:hover{color:var(--text-main)}
 
-    /* Mountains + horizon glow (whole site) */
-    .mountains{
-      position:fixed;
-      left:0; right:0; bottom:-2px;
-      height:46vh;
-      z-index:-2;
-      pointer-events:none;
-      opacity:.65;
-      filter: drop-shadow(0 -20px 60px rgba(0,0,0,.55));
-      mix-blend-mode: screen;
-      background:
-        radial-gradient(900px 240px at 50% 100%, rgba(67,209,255,0.18), transparent 65%),
-        radial-gradient(700px 220px at 35% 100%, rgba(139,92,246,0.14), transparent 70%),
-        linear-gradient(to top, rgba(5,8,22,0.0), rgba(5,8,22,0.45) 55%, rgba(5,8,22,0.82)),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 600'%3E%3Cpath fill='%23040a1a' fill-opacity='1' d='M0,420 L120,360 L240,410 L360,300 L480,360 L600,240 L720,320 L840,210 L960,290 L1080,180 L1200,260 L1320,220 L1440,300 L1440,600 L0,600 Z'/%3E%3Cpath fill='%23030a16' fill-opacity='0.95' d='M0,470 L140,430 L280,500 L420,380 L560,460 L700,340 L840,430 L980,300 L1120,380 L1260,330 L1440,420 L1440,600 L0,600 Z'/%3E%3C/svg%3E");
-      background-size: cover;
-      background-position: center bottom;
-      animation: mountainDrift 26s ease-in-out infinite alternate;
-      transform: translate3d(0,0,0);
-    }
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  position:relative;
+  padding:120px 18px 80px;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.25) 45%, rgba(0,0,0,.75)),
+    url("hero-bg.jpg") center/cover no-repeat;
+}
 
-    @keyframes nebulaDrift{ 0%{transform:translate(-2%,-1%) scale(1.02)} 100%{transform:translate(2%,1.5%) scale(1.06)} }
-    @keyframes twinkle{ 0%,100%{opacity:.45} 50%{opacity:.70} }
-    @keyframes gridShift{ 0%{transform:translateY(0)} 100%{transform:translateY(72px)} }
-    @keyframes mountainDrift{ 0%{transform:translateX(-1.2%)} 100%{transform:translateX(1.2%)} }
+/* stars overlay */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.8), transparent),
+    radial-gradient(1px 1px at 24% 64%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 38% 32%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 52% 58%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 66% 22%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 78% 70%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.4), transparent);
+  opacity:.75;
+  animation:twinkle 6s ease-in-out infinite;
+}
 
-    /* Reduce motion support */
-    @media (prefers-reduced-motion: reduce){
-      body::before, body::after, .grid-overlay, .mountains{animation:none !important}
-      html{scroll-behavior:auto}
-      .reveal{opacity:1 !important; transform:none !important}
-    }
+@keyframes twinkle{
+  0%,100%{opacity:.6}
+  50%{opacity:.9}
+}
 
-    /* --- Layout --- */
-    a{color:var(--text); text-decoration:none}
-    a:hover{opacity:.88}
-    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
-    .section{padding:88px 0}
-    .divider{border-top:1px solid var(--line)}
-    .muted{color:var(--muted)}
-    .pill{
-      display:inline-flex; align-items:center;
-      border:1px solid var(--line);
-      padding:6px 10px; border-radius:999px;
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:13px;
-      gap:8px;
-    }
+.hero h1{
+  font-size:clamp(44px,7vw,88px);
+  margin:0;
+  letter-spacing:-.02em;
+}
 
-    /* --- Top Nav --- */
-    .topbar{
-      position:fixed; top:0; left:0; right:0;
-      z-index:50;
-      background:rgba(5,8,22,.55);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(234,240,255,.10);
-    }
-    .topbar .inner{
-      height:64px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:700;
-      letter-spacing:.02em;
-      white-space:nowrap;
-    }
-    .brandDot{
-      width:10px; height:10px; border-radius:99px;
-      background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 0 18px rgba(67,209,255,.35);
-    }
-    nav a{
-      color:var(--muted);
-      font-size:14px;
-      padding:10px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-      display:inline-flex;
-      align-items:center;
-    }
-    nav a:hover{
-      color:var(--text);
-      border-color:rgba(234,240,255,.14);
-      background:rgba(255,255,255,.05);
-    }
-    .navRow{display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end}
-    .spacerTop{height:64px;}
+.hero p{
+  max-width:70ch;
+  margin:22px auto 0;
+  font-size:18px;
+  line-height:1.8;
+  color:var(--text-muted);
+  text-shadow:0 1px 28px rgba(0,0,0,.5);
+}
 
-    /* --- Hero --- */
-    .hero{
-      min-height:calc(100vh - 64px);
-      display:grid;
-      align-items:center;
-      padding:60px 0 40px;
-    }
-    .heroCard{
-      border:1px solid rgba(234,240,255,.10);
-      background:rgba(10,14,35,.55);
-      border-radius:var(--radius);
-      box-shadow:0 30px 90px rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
-      padding:54px 22px;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:26px;
-      align-items:center;
-    }
-    .hero h1{margin:0; font-size:64px; letter-spacing:-.02em; line-height:1.0}
-    .hero p{margin:16px 0 0; font-size:18px; color:var(--muted); max-width:60ch}
-    .heroStrong{color:var(--text); font-weight:600}
-    .heroLinks{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+/* buttons */
+.actions{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
 
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 14px; border-radius:12px;
-      border:1px solid rgba(234,240,255,.14);
-      background:rgba(255,255,255,.04);
-      color:var(--text); font-size:14px; gap:10px;
-    }
-    .btnPrimary{
-      border-color: rgba(67,209,255,.28);
-      background: linear-gradient(180deg, rgba(67,209,255,.14), rgba(255,255,255,.02));
-      box-shadow: 0 0 0 1px rgba(67,209,255,.12) inset, 0 18px 50px rgba(67,209,255,.08);
-    }
-    .btn:hover{opacity:.92}
+.btn{
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid var(--border-soft);
+  background:rgba(0,0,0,.35);
+  color:var(--text-main);
+  text-decoration:none;
+  backdrop-filter:blur(8px);
+}
+.btn.primary{
+  border-color:var(--accent-blue);
+  background:linear-gradient(135deg, rgba(143,188,212,.25), rgba(155,140,216,.25));
+}
+.btn:hover{opacity:.9}
 
-    .heroAside{display:flex; flex-direction:column; gap:12px; align-items:flex-start; justify-content:center}
-    .mini{
-      border:1px solid rgba(234,240,255,.10);
-      background:rgba(10,14,35,.40);
-      border-radius:14px;
-      padding:14px 14px;
-      width:100%;
-    }
-    .miniTitle{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
-    .miniBig{margin-top:8px; font-weight:700}
-    .miniSmall{color:var(--muted); margin-top:6px; font-size:14px}
+/* scroll */
+.scroll{
+  margin-top:46px;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:12px;
+  letter-spacing:.18em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+}
+.circle{
+  width:36px;height:36px;
+  border-radius:999px;
+  border:1px solid var(--border-soft);
+  display:grid;
+  place-items:center;
+}
+.arrow{
+  width:7px;height:7px;
+  border-right:2px solid var(--text-muted);
+  border-bottom:2px solid var(--text-muted);
+  transform:rotate(45deg);
+  animation:bounce 1.6s infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0) rotate(45deg)}
+  50%{transform:translateY(6px) rotate(45deg)}
+}
 
-    .scrollDown{
-      margin-top:26px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-    }
-    .scrollIcon{
-      width:34px; height:34px;
-      border-radius:999px;
-      border:1px solid rgba(234,240,255,.14);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.03);
-      position:relative;
-      overflow:hidden;
-    }
-    .scrollIcon::after{
-      content:"";
-      width:4px; height:4px;
-      border-right:2px solid var(--muted);
-      border-bottom:2px solid var(--muted);
-      transform: rotate(45deg);
-      position:absolute;
-      animation: bounce 1.6s ease-in-out infinite;
-      top:11px;
-    }
-    @keyframes bounce{
-      0%,100%{transform:translateY(0) rotate(45deg); opacity:.7}
-      50%{transform:translateY(6px) rotate(45deg); opacity:1}
-    }
+/* ---------- SECTIONS ---------- */
+section{
+  max-width:980px;
+  margin:0 auto;
+  padding:90px 18px;
+  opacity:0;
+  transform:translateY(28px);
+  transition:all .8s ease;
+}
+section.visible{
+  opacity:1;
+  transform:none;
+}
 
-    /* --- Content cards --- */
-    .twoCol{
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:30px;
-      align-items:start;
-    }
-    .sideTitle{
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .sideTitle::after{
-      content:"";
-      height:2px;
-      flex:1;
-      background:rgba(67,209,255,.40);
-      border-radius:99px;
-    }
-    .contentCard{
-      border:1px solid rgba(234,240,255,.10);
-      background:rgba(10,14,35,.45);
-      border-radius:var(--radius);
-      padding:28px;
-      backdrop-filter: blur(10px);
-    }
-    .h2{margin:0 0 10px; font-size:34px; letter-spacing:-.01em}
+.card{
+  background:var(--card-bg);
+  border:1px solid var(--border-soft);
+  border-radius:18px;
+  padding:28px;
+  backdrop-filter:blur(12px);
+}
 
-    .aboutGrid{
-      display:grid;
-      grid-template-columns: 160px 1fr;
-      gap:26px;
-      align-items:flex-start;
-    }
-    .avatar{
-      width:150px;
-      height:150px;
-      border-radius:999px;
-      border:1px solid rgba(234,240,255,.20);
-      background:
-        radial-gradient(circle at 30% 20%, rgba(67,209,255,.25), transparent 55%),
-        url("profile.jpg") center/cover no-repeat;
-      box-shadow:
-        0 0 0 6px rgba(255,255,255,.03),
-        0 25px 80px rgba(0,0,0,.65);
-    }
+h2{
+  margin-top:0;
+  font-size:13px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent-blue);
+}
 
-    .resumeItem{padding:18px 0; border-top:1px solid rgba(234,240,255,.10)}
-    .resumeItem:first-child{border-top:0; padding-top:0}
-    .resumeHead{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline}
-    .resumeHead .left{font-weight:700; font-size:18px}
-    .resumeHead .right{color:var(--muted); white-space:nowrap; font-size:14px}
-    .sub{margin-top:6px; color:var(--muted)}
-    ul{margin:12px 0 0 18px; color:var(--muted)}
-    li{margin:7px 0}
-
-    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
-    .chip{
-      border:1px solid rgba(234,240,255,.14);
-      background:rgba(255,255,255,.03);
-      border-radius:12px;
-      padding:10px 12px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    /* Say Hello */
-    .helloGrid{display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:start}
-    .bigCall{font-size:56px; line-height:1.05; letter-spacing:-.02em; margin:0}
-    .helloBox{
-      border:1px solid rgba(234,240,255,.10);
-      background:rgba(10,14,35,.45);
-      border-radius:var(--radius);
-      padding:22px;
-    }
-    .label{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
-    .value{margin-top:8px; font-size:18px}
-
-    footer{padding:26px 0 50px; color:rgba(234,240,255,.50); font-size:12px}
-
-    /* --- Subtle reveal animation (professional) --- */
-    .reveal{
-      opacity:0;
-      transform: translateY(14px);
-      transition: opacity .7s ease, transform .7s ease;
-      will-change: opacity, transform;
-    }
-    .reveal.is-visible{
-      opacity:1;
-      transform:none;
-    }
-
-    /* Responsive */
-    @media (max-width: 920px){
-      .hero h1{font-size:46px}
-      .heroGrid{grid-template-columns:1fr}
-      .twoCol{grid-template-columns:1fr}
-      .helloGrid{grid-template-columns:1fr}
-      .bigCall{font-size:40px}
-      .aboutGrid{grid-template-columns:1fr}
-      .avatar{width:120px; height:120px}
-    }
-  </style>
+footer{
+  text-align:center;
+  padding:50px 18px;
+  color:var(--text-muted);
+  font-size:12px;
+}
+</style>
 </head>
 
 <body>
-  <div class="grid-overlay" aria-hidden="true"></div>
-  <div class="mountains" aria-hidden="true"></div>
 
-  <!-- Top Nav -->
-  <div class="topbar">
-    <div class="container inner">
-      <div class="brand">
-        <span class="brandDot"></span>
-        <span>Aayush Sharma</span>
-      </div>
-      <nav class="navRow" aria-label="Primary">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#resume">Resume</a>
-        <a href="#projects">Projects</a>
-        <a href="#hello">Say Hello</a>
-      </nav>
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header id="home" class="hero">
+  <div>
+    <h1>I’m Aayush Sharma.</h1>
+    <p>
+      M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with experience in
+      machine learning, data analytics, and Python-based automation.
+      I build practical AI systems for real-world use.
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="#work">View Work</a>
+      <a class="btn" href="https://www.linkedin.com/in/aayush-sharma-17102000/" target="_blank">LinkedIn</a>
+      <a class="btn" href="https://github.com/AayushSharma17" target="_blank">GitHub</a>
     </div>
+
+    <a class="scroll" href="#about">
+      <span class="circle"><span class="arrow"></span></span>
+      Scroll Down
+    </a>
   </div>
+</header>
 
-  <div class="spacerTop"></div>
+<section id="about">
+  <div class="card">
+    <h2>About</h2>
+    <p>
+      I’m an Artificial Intelligence graduate student focused on applied machine learning,
+      NLP, and data-driven systems. I enjoy turning complex data into reliable,
+      production-ready solutions.
+    </p>
+  </div>
+</section>
 
-  <!-- HOME -->
-  <section id="home" class="hero reveal">
-    <div class="container">
-      <div class="heroCard">
-        <div class="heroGrid">
-          <div>
-            <h1>I'm Aayush Sharma.</h1>
-            <p>
-              <span class="heroStrong">M.Sc. Artificial Intelligence</span> student at FAU Erlangen–Nürnberg with experience in
-              <span class="heroStrong">machine learning, data analytics, and Python-based automation</span>.
-              I build data-driven solutions and practical ML systems for real-world use cases.
-            </p>
+<section id="work">
+  <div class="card">
+    <h2>Work & Focus</h2>
+    <p>
+      Python · Machine Learning · NLP · Data Analytics · SQL · Power BI · Azure ML
+    </p>
+  </div>
+</section>
 
-            <div class="heroLinks">
-              <a class="btn btnPrimary" href="#resume">View Resume</a>
-              <a class="btn" href="https://www.linkedin.com/in/aayush-sharma-17102000/" target="_blank" rel="noreferrer">LinkedIn</a>
-              <a class="btn" href="https://github.com/AayushSharma17" target="_blank" rel="noreferrer">GitHub</a>
-              <span class="pill">Nuremberg, Germany</span>
-            </div>
+<section id="contact">
+  <div class="card">
+    <h2>Say Hello</h2>
+    <p>
+      Email: <a href="mailto:aayushsharma1710@gmail.com">aayushsharma1710@gmail.com</a><br>
+      Nuremberg, Germany
+    </p>
+  </div>
+</section>
 
-            <div class="scrollDown">
-              <span class="scrollIcon" aria-hidden="true"></span>
-              <span>Scroll Down</span>
-            </div>
-          </div>
+<footer>
+  © 2026 Aayush Sharma
+</footer>
 
-          <div class="heroAside">
-            <div class="mini">
-              <div class="miniTitle">Focus</div>
-              <div class="miniBig">Applied AI &amp; ML</div>
-              <div class="miniSmall">Machine Learning · NLP · Data Analytics</div>
-            </div>
-            <div class="mini">
-              <div class="miniTitle">Tools</div>
-              <div class="miniBig">Python · SQL · Power BI</div>
-              <div class="miniSmall">TensorFlow · Azure ML · REST APIs</div>
-            </div>
-            <div class="mini">
-              <div class="miniTitle">Languages</div>
-              <div class="miniBig">English (C1)</div>
-              <div class="miniSmall">German (A2 → B1/B2)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<script>
+const sections=document.querySelectorAll("section");
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add("visible");
+  });
+},{threshold:.15});
+sections.forEach(s=>io.observe(s));
+</script>
 
-  <!-- ABOUT -->
-  <section id="about" class="section divider reveal">
-    <div class="container">
-      <div class="twoCol">
-        <div class="sideTitle">About</div>
-        <div class="contentCard">
-          <div class="aboutGrid">
-            <div class="avatar" aria-label="Profile photo"></div>
-            <div>
-              <h2 class="h2">About Me</h2>
-              <p class="muted" style="margin:0; font-size:18px;">
-                M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with a background in computer science and applied data analytics.
-                Experience in Python-based automation, data modeling, and machine-learning-oriented analysis across industry and academic contexts.
-                Focused on applied AI, data-driven decision support, and practical machine learning systems.
-              </p>
-
-              <div style="height:18px"></div>
-              <div class="chips">
-                <span class="chip">Python (Advanced)</span>
-                <span class="chip">Machine Learning</span>
-                <span class="chip">NLP</span>
-                <span class="chip">SQL</span>
-                <span class="chip">Power BI</span>
-                <span class="chip">TensorFlow</span>
-                <span class="chip">Azure Machine Learning</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESUME -->
-  <section id="resume" class="section divider reveal">
-    <div class="container">
-      <div class="twoCol">
-        <div class="sideTitle">Resume</div>
-
-        <div class="contentCard">
-          <h2 class="h2">Resume</h2>
-
-          <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">M.Sc. Artificial Intelligence — FAU Erlangen–Nürnberg</div>
-              <div class="right">Oct 2025 – Present</div>
-            </div>
-            <div class="sub">Coursework: Deep Learning, Natural Language Processing, Data Science &amp; Ethics, AI in Organizational Contexts</div>
-          </div>
-
-          <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">B.Tech. Computer Science and Engineering — Poornima College of Engineering</div>
-              <div class="right">Aug 2019 – Jun 2023</div>
-            </div>
-            <div class="sub">Jaipur, India (EQF Level 6)</div>
-          </div>
-
-          <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">Associate Engineer — ElasticRun</div>
-              <div class="right">Apr 2023 – Oct 2023</div>
-            </div>
-            <div class="sub">Pune, India</div>
-            <ul>
-              <li>Developed and maintained Python-based server-side logic and data models for business-critical workflows.</li>
-              <li>Built SQL reporting pipelines to support performance monitoring and executive decision-making.</li>
-              <li>Automated data validation and reporting processes, reducing reporting errors by approximately 20%.</li>
-              <li>Collaborated with global stakeholders to define technical requirements and system performance metrics.</li>
-            </ul>
-          </div>
-
-          <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">Data Science Intern — Celebal Technologies</div>
-              <div class="right">Jul 2022 – Aug 2022</div>
-            </div>
-            <div class="sub">Jaipur, India</div>
-            <ul>
-              <li>Cleaned and analyzed unstructured datasets to generate actionable insights.</li>
-              <li>Developed predictive models to support evaluation of future project use cases.</li>
-              <li>Prepared data visualizations and presentations for non-technical stakeholders.</li>
-            </ul>
-          </div>
-
-          <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">Skills</div>
-              <div class="right"></div>
-            </div>
-            <div class="chips">
-              <span class="chip">Python · SQL</span>
-              <span class="chip">Machine Learning · Deep Learning · NLP</span>
-              <span class="chip">TensorFlow · Azure ML</span>
-              <span class="chip">Data Modeling · Statistical Analysis</span>
-              <span class="chip">Power BI</span>
-              <span class="chip">REST APIs · Frappe Framework</span>
-              <span class="chip">English (C1) · German (A2 → B1/B2)</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="section divider reveal">
-    <div class="container">
-      <div class="twoCol">
-        <div class="sideTitle">Projects</div>
-        <div class="contentCard">
-          <h2 class="h2">Projects</h2>
-
-          <div class="resumeItem" style="border-top:0; padding-top:0;">
-            <div class="resumeHead"><div class="left">Sentiment Analysis (NLP)</div></div>
-            <div class="sub">Neural-network-based text classification system for feedback analysis.</div>
-          </div>
-
-          <div class="resumeItem">
-            <div class="resumeHead"><div class="left">AI Use-Case Evaluation</div></div>
-            <div class="sub">Research on integrating LLM tools (ChatGPT, Copilot) into development and administrative workflows.</div>
-          </div>
-
-          <div class="resumeItem">
-            <div class="resumeHead"><div class="left">Weather Prediction Model</div></div>
-            <div class="sub">Statistical and machine learning approaches for trend forecasting.</div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SAY HELLO -->
-  <section id="hello" class="section divider reveal">
-    <div class="container">
-      <div class="twoCol">
-        <div class="sideTitle">Say Hello</div>
-
-        <div class="contentCard">
-          <div class="helloGrid">
-            <div>
-              <p class="bigCall">Got a project, thesis topic, or collaboration idea?</p>
-              <p class="muted" style="margin:14px 0 0; font-size:18px;">
-                I’m interested in applied AI/ML, data analytics, and practical machine learning systems.
-              </p>
-            </div>
-
-            <div class="helloBox">
-              <div class="label">Email</div>
-              <div class="value"><a href="mailto:aayushsharma1710@gmail.com">aayushsharma1710@gmail.com</a></div>
-
-              <div style="height:14px"></div>
-              <div class="label">Location</div>
-              <div class="value muted">Nuremberg, Bavaria, Germany</div>
-
-              <div style="height:18px"></div>
-              <a class="btn btnPrimary" href="mailto:aayushsharma1710@gmail.com">Let’s Talk</a>
-            </div>
-          </div>
-
-          <div style="height:14px"></div>
-          <div class="muted" style="font-size:13px;">
-            LinkedIn: <a href="https://www.linkedin.com/in/aayush-sharma-17102000/" target="_blank" rel="noreferrer">aayush-sharma-17102000</a>
-            · GitHub: <a href="https://github.com/AayushSharma17" target="_blank" rel="noreferrer">AayushSharma17</a>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="container reveal">
-    © <span id="year"></span> Aayush Sharma · Built on GitHub Pages
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Active nav highlight (small “alive” touch)
-    const links = [...document.querySelectorAll(".navRow a")];
-    const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-
-    const setActive = () => {
-      const y = window.scrollY + 110;
-      let idx = 0;
-      sections.forEach((s, i) => { if (s.offsetTop <= y) idx = i; });
-      links.forEach(a => a.style.color = "var(--muted)");
-      if (links[idx]) links[idx].style.color = "var(--text)";
-    };
-    window.addEventListener("scroll", setActive, {passive:true});
-    setActive();
-
-    // Subtle reveal on scroll (professional, not flashy)
-    const revealEls = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add("is-visible");
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
-
-    revealEls.forEach(el => io.observe(el));
-
-    // Make hero visible immediately (prevents blank on load)
-    document.querySelector("#home")?.classList.add("is-visible");
-  </script>
 </body>
 </html>
+
 
 
 
