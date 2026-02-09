@@ -9,12 +9,10 @@
   <style>
     :root{
       --bg:#050816;
-      --card:rgba(10,14,35,.60);
-      --card2:rgba(10,14,35,.78);
       --text:#EAF0FF;
       --muted:rgba(234,240,255,.68);
       --line:rgba(234,240,255,.14);
-      --accent:#43d1ff; /* slightly different than Anita */
+      --accent:#43d1ff;
       --accent2:#8b5cf6;
       --max:1080px;
       --radius:18px;
@@ -30,11 +28,11 @@
       overflow-x:hidden;
     }
 
-    /* --- Background: galaxy + tech grid (subtle, animated) --- */
+    /* --- Galaxy + stars (animated, subtle) --- */
     body::before{
       content:"";
       position:fixed; inset:-15%;
-      z-index:-3;
+      z-index:-5;
       background:
         radial-gradient(1100px 650px at 12% 10%, rgba(67,209,255,.16), transparent 55%),
         radial-gradient(900px 600px at 90% 18%, rgba(139,92,246,.14), transparent 58%),
@@ -47,7 +45,7 @@
     body::after{
       content:"";
       position:fixed; inset:0;
-      z-index:-2;
+      z-index:-4;
       pointer-events:none;
       background:
         radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.55), transparent 60%),
@@ -65,9 +63,11 @@
       opacity:.55;
       animation: twinkle 6s ease-in-out infinite;
     }
+
+    /* Tech grid overlay */
     .grid-overlay{
       position:fixed; inset:0;
-      z-index:-1;
+      z-index:-3;
       pointer-events:none;
       background:
         linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
@@ -77,16 +77,41 @@
       mask-image: radial-gradient(circle at 50% 22%, rgba(0,0,0,.90) 0%, rgba(0,0,0,.35) 48%, rgba(0,0,0,0) 74%);
       animation: gridShift 18s linear infinite;
     }
+
+    /* Mountains + horizon glow (whole site) */
+    .mountains{
+      position:fixed;
+      left:0; right:0; bottom:-2px;
+      height:46vh;
+      z-index:-2;
+      pointer-events:none;
+      opacity:.65;
+      filter: drop-shadow(0 -20px 60px rgba(0,0,0,.55));
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(900px 240px at 50% 100%, rgba(67,209,255,0.18), transparent 65%),
+        radial-gradient(700px 220px at 35% 100%, rgba(139,92,246,0.14), transparent 70%),
+        linear-gradient(to top, rgba(5,8,22,0.0), rgba(5,8,22,0.45) 55%, rgba(5,8,22,0.82)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 600'%3E%3Cpath fill='%23040a1a' fill-opacity='1' d='M0,420 L120,360 L240,410 L360,300 L480,360 L600,240 L720,320 L840,210 L960,290 L1080,180 L1200,260 L1320,220 L1440,300 L1440,600 L0,600 Z'/%3E%3Cpath fill='%23030a16' fill-opacity='0.95' d='M0,470 L140,430 L280,500 L420,380 L560,460 L700,340 L840,430 L980,300 L1120,380 L1260,330 L1440,420 L1440,600 L0,600 Z'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center bottom;
+      animation: mountainDrift 26s ease-in-out infinite alternate;
+      transform: translate3d(0,0,0);
+    }
+
     @keyframes nebulaDrift{ 0%{transform:translate(-2%,-1%) scale(1.02)} 100%{transform:translate(2%,1.5%) scale(1.06)} }
     @keyframes twinkle{ 0%,100%{opacity:.45} 50%{opacity:.70} }
     @keyframes gridShift{ 0%{transform:translateY(0)} 100%{transform:translateY(72px)} }
+    @keyframes mountainDrift{ 0%{transform:translateX(-1.2%)} 100%{transform:translateX(1.2%)} }
 
+    /* Reduce motion support */
     @media (prefers-reduced-motion: reduce){
-      body::before, body::after, .grid-overlay{animation:none !important}
+      body::before, body::after, .grid-overlay, .mountains{animation:none !important}
       html{scroll-behavior:auto}
+      .reveal{opacity:1 !important; transform:none !important}
     }
 
-    /* --- Layout helpers --- */
+    /* --- Layout --- */
     a{color:var(--text); text-decoration:none}
     a:hover{opacity:.88}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px}
@@ -103,7 +128,7 @@
       gap:8px;
     }
 
-    /* --- Top Nav (Anita-style) --- */
+    /* --- Top Nav --- */
     .topbar{
       position:fixed; top:0; left:0; right:0;
       z-index:50;
@@ -136,7 +161,6 @@
       border-radius:999px;
       border:1px solid transparent;
       display:inline-flex;
-      gap:8px;
       align-items:center;
     }
     nav a:hover{
@@ -144,15 +168,10 @@
       border-color:rgba(234,240,255,.14);
       background:rgba(255,255,255,.05);
     }
-    .navRow{
-      display:flex;
-      gap:4px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+    .navRow{display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end}
     .spacerTop{height:64px;}
 
-    /* --- Hero (Home) --- */
+    /* --- Hero --- */
     .hero{
       min-height:calc(100vh - 64px);
       display:grid;
@@ -173,40 +192,17 @@
       gap:26px;
       align-items:center;
     }
-    .hero h1{
-      margin:0;
-      font-size:64px;
-      letter-spacing:-.02em;
-      line-height:1.0;
-    }
-    .hero p{
-      margin:16px 0 0;
-      font-size:18px;
-      color:var(--muted);
-      max-width:60ch;
-    }
-    .heroStrong{
-      color:var(--text);
-      font-weight:600;
-    }
-    .heroLinks{
-      margin-top:22px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+    .hero h1{margin:0; font-size:64px; letter-spacing:-.02em; line-height:1.0}
+    .hero p{margin:16px 0 0; font-size:18px; color:var(--muted); max-width:60ch}
+    .heroStrong{color:var(--text); font-weight:600}
+    .heroLinks{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:12px 14px;
-      border-radius:12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px; border-radius:12px;
       border:1px solid rgba(234,240,255,.14);
       background:rgba(255,255,255,.04);
-      color:var(--text);
-      font-size:14px;
-      gap:10px;
+      color:var(--text); font-size:14px; gap:10px;
     }
     .btnPrimary{
       border-color: rgba(67,209,255,.28);
@@ -214,13 +210,8 @@
       box-shadow: 0 0 0 1px rgba(67,209,255,.12) inset, 0 18px 50px rgba(67,209,255,.08);
     }
     .btn:hover{opacity:.92}
-    .heroAside{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:center;
-    }
+
+    .heroAside{display:flex; flex-direction:column; gap:12px; align-items:flex-start; justify-content:center}
     .mini{
       border:1px solid rgba(234,240,255,.10);
       background:rgba(10,14,35,.40);
@@ -231,6 +222,7 @@
     .miniTitle{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
     .miniBig{margin-top:8px; font-weight:700}
     .miniSmall{color:var(--muted); margin-top:6px; font-size:14px}
+
     .scrollDown{
       margin-top:26px;
       display:flex;
@@ -267,7 +259,7 @@
       50%{transform:translateY(6px) rotate(45deg); opacity:1}
     }
 
-    /* --- Content section styling (Anita-like) --- */
+    /* --- Content cards --- */
     .twoCol{
       display:grid;
       grid-template-columns: 280px 1fr;
@@ -297,37 +289,33 @@
       padding:28px;
       backdrop-filter: blur(10px);
     }
-    .h2{
-      margin:0 0 10px;
-      font-size:34px;
-      letter-spacing:-.01em;
+    .h2{margin:0 0 10px; font-size:34px; letter-spacing:-.01em}
+
+    .aboutGrid{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:26px;
+      align-items:flex-start;
+    }
+    .avatar{
+      width:150px;
+      height:150px;
+      border-radius:999px;
+      border:1px solid rgba(234,240,255,.20);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(67,209,255,.25), transparent 55%),
+        url("profile.jpg") center/cover no-repeat;
+      box-shadow:
+        0 0 0 6px rgba(255,255,255,.03),
+        0 25px 80px rgba(0,0,0,.65);
     }
 
-    .resumeItem{
-      padding:18px 0;
-      border-top:1px solid rgba(234,240,255,.10);
-    }
+    .resumeItem{padding:18px 0; border-top:1px solid rgba(234,240,255,.10)}
     .resumeItem:first-child{border-top:0; padding-top:0}
-    .resumeHead{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:baseline;
-    }
-    .resumeHead .left{
-      font-weight:700;
-      font-size:18px;
-    }
-    .resumeHead .right{
-      color:var(--muted);
-      white-space:nowrap;
-      font-size:14px;
-    }
-    .sub{
-      margin-top:6px;
-      color:var(--muted);
-    }
+    .resumeHead{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline}
+    .resumeHead .left{font-weight:700; font-size:18px}
+    .resumeHead .right{color:var(--muted); white-space:nowrap; font-size:14px}
+    .sub{margin-top:6px; color:var(--muted)}
     ul{margin:12px 0 0 18px; color:var(--muted)}
     li{margin:7px 0}
 
@@ -341,19 +329,9 @@
       font-size:14px;
     }
 
-    /* --- Say Hello section --- */
-    .helloGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:24px;
-      align-items:start;
-    }
-    .bigCall{
-      font-size:56px;
-      line-height:1.05;
-      letter-spacing:-.02em;
-      margin:0;
-    }
+    /* Say Hello */
+    .helloGrid{display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:start}
+    .bigCall{font-size:56px; line-height:1.05; letter-spacing:-.02em; margin:0}
     .helloBox{
       border:1px solid rgba(234,240,255,.10);
       background:rgba(10,14,35,.45);
@@ -363,11 +341,18 @@
     .label{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
     .value{margin-top:8px; font-size:18px}
 
-    /* Footer */
-    footer{
-      padding:26px 0 50px;
-      color:rgba(234,240,255,.50);
-      font-size:12px;
+    footer{padding:26px 0 50px; color:rgba(234,240,255,.50); font-size:12px}
+
+    /* --- Subtle reveal animation (professional) --- */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible{
+      opacity:1;
+      transform:none;
     }
 
     /* Responsive */
@@ -377,12 +362,15 @@
       .twoCol{grid-template-columns:1fr}
       .helloGrid{grid-template-columns:1fr}
       .bigCall{font-size:40px}
+      .aboutGrid{grid-template-columns:1fr}
+      .avatar{width:120px; height:120px}
     }
   </style>
 </head>
 
 <body>
   <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="mountains" aria-hidden="true"></div>
 
   <!-- Top Nav -->
   <div class="topbar">
@@ -395,7 +383,6 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#resume">Resume</a>
-        <!-- Optional: keep as placeholder like Anita, but you can remove -->
         <a href="#projects">Projects</a>
         <a href="#hello">Say Hello</a>
       </nav>
@@ -404,8 +391,8 @@
 
   <div class="spacerTop"></div>
 
-  <!-- HOME (Hero) -->
-  <section id="home" class="hero">
+  <!-- HOME -->
+  <section id="home" class="hero reveal">
     <div class="container">
       <div class="heroCard">
         <div class="heroGrid">
@@ -453,27 +440,32 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="section divider">
+  <section id="about" class="section divider reveal">
     <div class="container">
       <div class="twoCol">
         <div class="sideTitle">About</div>
         <div class="contentCard">
-          <h2 class="h2">About Me</h2>
-          <p class="muted" style="margin:0; font-size:18px;">
-            M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with a background in computer science and applied data analytics.
-            Experience in Python-based automation, data modeling, and machine-learning-oriented analysis across industry and academic contexts.
-            Focused on applied AI, data-driven decision support, and practical machine learning systems.
-          </p>
+          <div class="aboutGrid">
+            <div class="avatar" aria-label="Profile photo"></div>
+            <div>
+              <h2 class="h2">About Me</h2>
+              <p class="muted" style="margin:0; font-size:18px;">
+                M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with a background in computer science and applied data analytics.
+                Experience in Python-based automation, data modeling, and machine-learning-oriented analysis across industry and academic contexts.
+                Focused on applied AI, data-driven decision support, and practical machine learning systems.
+              </p>
 
-          <div style="height:18px"></div>
-          <div class="chips">
-            <span class="chip">Python (Advanced)</span>
-            <span class="chip">Machine Learning</span>
-            <span class="chip">NLP</span>
-            <span class="chip">SQL</span>
-            <span class="chip">Power BI</span>
-            <span class="chip">TensorFlow</span>
-            <span class="chip">Azure Machine Learning</span>
+              <div style="height:18px"></div>
+              <div class="chips">
+                <span class="chip">Python (Advanced)</span>
+                <span class="chip">Machine Learning</span>
+                <span class="chip">NLP</span>
+                <span class="chip">SQL</span>
+                <span class="chip">Power BI</span>
+                <span class="chip">TensorFlow</span>
+                <span class="chip">Azure Machine Learning</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -481,7 +473,7 @@
   </section>
 
   <!-- RESUME -->
-  <section id="resume" class="section divider">
+  <section id="resume" class="section divider reveal">
     <div class="container">
       <div class="twoCol">
         <div class="sideTitle">Resume</div>
@@ -489,7 +481,6 @@
         <div class="contentCard">
           <h2 class="h2">Resume</h2>
 
-          <!-- Education -->
           <div class="resumeItem">
             <div class="resumeHead">
               <div class="left">M.Sc. Artificial Intelligence — FAU Erlangen–Nürnberg</div>
@@ -506,7 +497,6 @@
             <div class="sub">Jaipur, India (EQF Level 6)</div>
           </div>
 
-          <!-- Experience -->
           <div class="resumeItem">
             <div class="resumeHead">
               <div class="left">Associate Engineer — ElasticRun</div>
@@ -534,7 +524,6 @@
             </ul>
           </div>
 
-          <!-- Skills -->
           <div class="resumeItem">
             <div class="resumeHead">
               <div class="left">Skills</div>
@@ -547,6 +536,7 @@
               <span class="chip">Data Modeling · Statistical Analysis</span>
               <span class="chip">Power BI</span>
               <span class="chip">REST APIs · Frappe Framework</span>
+              <span class="chip">English (C1) · German (A2 → B1/B2)</span>
             </div>
           </div>
 
@@ -555,8 +545,8 @@
     </div>
   </section>
 
-  <!-- PROJECTS (kept similar to Anita’s extra pages, but in-page) -->
-  <section id="projects" class="section divider">
+  <!-- PROJECTS -->
+  <section id="projects" class="section divider reveal">
     <div class="container">
       <div class="twoCol">
         <div class="sideTitle">Projects</div>
@@ -564,26 +554,17 @@
           <h2 class="h2">Projects</h2>
 
           <div class="resumeItem" style="border-top:0; padding-top:0;">
-            <div class="resumeHead">
-              <div class="left">Sentiment Analysis (NLP)</div>
-              <div class="right"></div>
-            </div>
+            <div class="resumeHead"><div class="left">Sentiment Analysis (NLP)</div></div>
             <div class="sub">Neural-network-based text classification system for feedback analysis.</div>
           </div>
 
           <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">AI Use-Case Evaluation</div>
-              <div class="right"></div>
-            </div>
+            <div class="resumeHead"><div class="left">AI Use-Case Evaluation</div></div>
             <div class="sub">Research on integrating LLM tools (ChatGPT, Copilot) into development and administrative workflows.</div>
           </div>
 
           <div class="resumeItem">
-            <div class="resumeHead">
-              <div class="left">Weather Prediction Model</div>
-              <div class="right"></div>
-            </div>
+            <div class="resumeHead"><div class="left">Weather Prediction Model</div></div>
             <div class="sub">Statistical and machine learning approaches for trend forecasting.</div>
           </div>
 
@@ -593,7 +574,7 @@
   </section>
 
   <!-- SAY HELLO -->
-  <section id="hello" class="section divider">
+  <section id="hello" class="section divider reveal">
     <div class="container">
       <div class="twoCol">
         <div class="sideTitle">Say Hello</div>
@@ -609,9 +590,7 @@
 
             <div class="helloBox">
               <div class="label">Email</div>
-              <div class="value">
-                <a href="mailto:aayushsharma1710@gmail.com">aayushsharma1710@gmail.com</a>
-              </div>
+              <div class="value"><a href="mailto:aayushsharma1710@gmail.com">aayushsharma1710@gmail.com</a></div>
 
               <div style="height:14px"></div>
               <div class="label">Location</div>
@@ -633,31 +612,43 @@
     </div>
   </section>
 
-  <footer class="container">
+  <footer class="container reveal">
     © <span id="year"></span> Aayush Sharma · Built on GitHub Pages
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Simple "active nav" highlight (optional, minimal)
+    // Active nav highlight (small “alive” touch)
     const links = [...document.querySelectorAll(".navRow a")];
     const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
 
     const setActive = () => {
-      const y = window.scrollY + 90;
+      const y = window.scrollY + 110;
       let idx = 0;
-      sections.forEach((s, i) => {
-        if (s.offsetTop <= y) idx = i;
-      });
+      sections.forEach((s, i) => { if (s.offsetTop <= y) idx = i; });
       links.forEach(a => a.style.color = "var(--muted)");
       if (links[idx]) links[idx].style.color = "var(--text)";
     };
     window.addEventListener("scroll", setActive, {passive:true});
     setActive();
+
+    // Subtle reveal on scroll (professional, not flashy)
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add("is-visible");
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+
+    revealEls.forEach(el => io.observe(el));
+
+    // Make hero visible immediately (prevents blank on load)
+    document.querySelector("#home")?.classList.add("is-visible");
   </script>
 </body>
 </html>
+
 
 
 
