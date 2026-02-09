@@ -5,20 +5,123 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Aayush Sharma — AI / ML</title>
   <meta name="description" content="Aayush Sharma — Artificial Intelligence, Machine Learning, Data Analytics" />
+
   <style>
-        .nav{
+    :root{
+      --bg:#020617;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --line:rgba(255,255,255,0.14);
+      --link:#e5e7eb;
+      --max:920px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font:15px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:#020617;
+      overflow-x:hidden;
+    }
+
+    /* ---- Animated galaxy/tech background layers (no images) ---- */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-20%;
+      z-index:-3;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(99,102,241,0.16), transparent 55%),
+        radial-gradient(900px 500px at 90% 20%, rgba(56,189,248,0.12), transparent 58%),
+        radial-gradient(900px 650px at 50% 85%, rgba(168,85,247,0.12), transparent 60%),
+        linear-gradient(180deg, #020617 0%, #020617 100%);
+      filter:saturate(1.05);
+      animation: driftNebula 22s ease-in-out infinite alternate;
+      transform: translate3d(0,0,0);
+    }
+
+    /* Starfield */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.55), transparent 60%),
+        radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.45), transparent 60%),
+        radial-gradient(1px 1px at 35% 30%, rgba(255,255,255,0.55), transparent 60%),
+        radial-gradient(1px 1px at 55% 70%, rgba(255,255,255,0.40), transparent 60%),
+        radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,0.50), transparent 60%),
+        radial-gradient(1px 1px at 82% 62%, rgba(255,255,255,0.35), transparent 60%),
+        radial-gradient(1px 1px at 92% 32%, rgba(255,255,255,0.50), transparent 60%),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.35), transparent 60%),
+        radial-gradient(1px 1px at 40% 92%, rgba(255,255,255,0.45), transparent 60%),
+        radial-gradient(1px 1px at 63% 44%, rgba(255,255,255,0.35), transparent 60%),
+        radial-gradient(1px 1px at 77% 88%, rgba(255,255,255,0.40), transparent 60%),
+        radial-gradient(1px 1px at 5%  65%, rgba(255,255,255,0.45), transparent 60%);
+      opacity:0.55;
+      animation: twinkle 6s ease-in-out infinite;
+      transform: translate3d(0,0,0);
+    }
+
+    /* Tech grid overlay */
+    .bg-grid{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 68px 68px;
+      mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0) 72%);
+      opacity:0.35;
+      animation: gridShift 18s linear infinite;
+    }
+
+    @keyframes driftNebula{
+      0%{ transform: translate(-2%, -1%) scale(1.02); }
+      100%{ transform: translate(2%, 1.5%) scale(1.06); }
+    }
+    @keyframes twinkle{
+      0%,100%{ opacity:0.45; filter: blur(0px); }
+      50%{ opacity:0.70; filter: blur(0.2px); }
+    }
+    @keyframes gridShift{
+      0%{ transform: translateY(0px); }
+      100%{ transform: translateY(68px); }
+    }
+
+    /* ---- Layout ---- */
+    a{color:var(--link); text-decoration:underline; text-underline-offset:3px}
+    a:hover{opacity:.88}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:44px 18px 64px;
+      background: rgba(2,6,23,0.58);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      box-shadow: 0 20px 70px rgba(0,0,0,0.55);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav{
       position: sticky;
       top: 12px;
       z-index: 10;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       padding: 10px 12px;
       margin-bottom: 18px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 14px;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(8px);
+      background: rgba(2,6,23,0.78);
+      backdrop-filter: blur(10px);
     }
     .nav a{
       text-decoration: none;
@@ -30,32 +133,10 @@
     }
     .nav a:hover{
       color: var(--text);
-      border-color: var(--line);
-      background: #fff;
-    }
-    html{
-      scroll-behavior: smooth;
+      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
     }
 
-    :root{
-      --bg:#ffffff;
-      --text:#111827;
-      --muted:#4b5563;
-      --line:#e5e7eb;
-      --link:#111827;
-      --max:920px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background: radial-gradient(circle at 20% 0%, #f3f4f6 0%, #ffffff 55%) fixed;
-      background:var(--bg);
-      color:var(--text);
-      font:15px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    }
-    a{color:var(--link); text-decoration:underline; text-underline-offset:3px}
-    a:hover{opacity:.85}
-    .wrap{max-width:var(--max); margin:0 auto; padding:44px 18px 64px}
     header{display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
     h1{font-size:34px; line-height:1.1; margin:0}
     .tagline{margin:8px 0 0; color:var(--muted)}
@@ -63,13 +144,15 @@
     .meta a{color:var(--muted)}
     .pillrow{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
     .pill{
-      border:1px solid var(--line);
+      border:1px solid rgba(255,255,255,0.14);
       padding:6px 10px;
       border-radius:999px;
       font-size:13px;
       color:var(--muted);
+      background: rgba(255,255,255,0.03);
     }
-    hr{border:0; border-top:1px solid var(--line); margin:28px 0}
+
+    hr{border:0; border-top:1px solid rgba(255,255,255,0.12); margin:28px 0}
     section{margin-top:18px}
     h2{
       font-size:13px;
@@ -87,20 +170,36 @@
     ul{margin:10px 0 0 18px; padding:0}
     li{margin:6px 0}
     .skills{display:flex; gap:10px; flex-wrap:wrap}
-    .skill{border:1px solid var(--line); border-radius:10px; padding:6px 10px; font-size:13px; color:var(--muted)}
+    .skill{
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:10px;
+      padding:6px 10px;
+      font-size:13px;
+      color:var(--muted);
+      background: rgba(255,255,255,0.03);
+    }
     footer{margin-top:34px; color:var(--muted); font-size:12px}
+
+    /* Reduce motion support */
+    @media (prefers-reduced-motion: reduce){
+      body::before, body::after, .bg-grid{ animation: none !important; }
+      html{ scroll-behavior: auto; }
+    }
   </style>
 </head>
 
 <body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
   <main class="wrap">
     <nav class="nav">
-  <a href="#profile">Profile</a>
-  <a href="#education">Education</a>
-  <a href="#experience">Experience</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
+      <a href="#profile">Profile</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
     </nav>
+
     <header>
       <div>
         <h1>Aayush Sharma</h1>
@@ -259,4 +358,5 @@
   </main>
 </body>
 </html>
+
 
