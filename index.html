@@ -151,13 +151,14 @@
     color:var(--text);
     background:#000;
     overflow:hidden;
+    isolation:isolate;
   }
 
   /* We render the hero image via a separate layer so we can parallax it */
   .heroBg{
     position:absolute;
     inset:-8%;
-    z-index:-3;
+    z-index:0;
     background:
       linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.20) 45%, rgba(0,0,0,.78)),
       url("hero-bg.jpg") center/cover no-repeat;
@@ -177,6 +178,9 @@
     mix-blend-mode: screen;
     opacity:.85;
   }
+  .hero .container{ position:relative; z-index:2; }
+  .heroTint{ z-index:1; }
+  .stars{ z-index:1; }
 
   /* stars layer (subtle) */
   .stars{
