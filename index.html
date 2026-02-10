@@ -10,7 +10,6 @@
   --text:#ffffff;
   --muted:rgba(255,255,255,.72);
   --accent:#00b4b4;
-  --dark:rgba(0,0,0,.65);
   --glass:rgba(20,20,25,.55);
   --border:rgba(255,255,255,.14);
   --max:1100px;
@@ -25,7 +24,7 @@ body{
   background:#000;
 }
 
-/* ===== GLOBAL BACKGROUND ===== */
+/* GLOBAL BACKGROUND */
 body::before{
   content:"";
   position:fixed;
@@ -36,7 +35,7 @@ body::before{
     url("hero-bg.jpg") center/cover no-repeat;
 }
 
-/* ===== NAV ===== */
+/* NAV */
 nav{
   position:fixed;
   top:0; left:0; right:0;
@@ -56,7 +55,7 @@ nav a{
 }
 nav a:hover{color:var(--text)}
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{
   min-height:100vh;
   display:grid;
@@ -77,8 +76,6 @@ nav a:hover{color:var(--text)}
   color:var(--accent);
   text-transform:uppercase;
 }
-
-/* floating profile photo */
 .avatar{
   width:160px;
   height:160px;
@@ -94,7 +91,7 @@ nav a:hover{color:var(--text)}
   50%{transform:translateY(-12px)}
 }
 
-/* ===== SECTIONS ===== */
+/* SECTIONS */
 section{
   max-width:var(--max);
   margin:0 auto;
@@ -107,14 +104,12 @@ section{
   padding:50px;
   backdrop-filter:blur(14px);
 }
-
-/* darker overlay for non-hero */
 .section-dim{
   background:rgba(0,0,0,.45);
   border-radius:18px;
 }
 
-/* headings */
+/* TEXT */
 h2{
   margin:0 0 18px;
   font-size:36px;
@@ -125,7 +120,7 @@ p{
   line-height:1.9;
 }
 
-/* grids */
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -138,7 +133,29 @@ p{
   border:1px solid var(--border);
 }
 
-/* footer */
+/* SKILLS */
+.skill{
+  margin-bottom:22px;
+}
+.skill-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:6px;
+  color:var(--muted);
+}
+.skill-bar{
+  height:6px;
+  background:rgba(255,255,255,.15);
+  border-radius:999px;
+  overflow:hidden;
+}
+.skill-fill{
+  height:100%;
+  background:linear-gradient(90deg, var(--accent), #4fd1c5);
+}
+
+/* FOOTER */
 footer{
   text-align:center;
   padding:60px 20px;
@@ -146,7 +163,7 @@ footer{
   font-size:13px;
 }
 
-/* responsive */
+/* RESPONSIVE */
 @media(max-width:800px){
   section{padding:90px 20px}
   .glass{padding:34px}
@@ -159,6 +176,7 @@ footer{
 <nav>
   <a href="#home">Home</a>
   <a href="#about">About</a>
+  <a href="#skills">Skills</a>
   <a href="#work">Work</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -178,9 +196,46 @@ footer{
     <h2>About</h2>
     <p>
       I’m an M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with a background in
-      computer science and applied data analytics. I enjoy building practical ML systems that
-      translate complex data into meaningful, real-world outcomes.
+      computer science and applied data analytics. I focus on building practical machine learning
+      systems that translate complex data into real-world value.
     </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="glass section-dim">
+    <h2>AI & Technical Skills</h2>
+
+    <div class="skill">
+      <div class="skill-label"><span>Python</span><span>Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>Machine Learning</span><span>Strong</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>Deep Learning</span><span>Intermediate</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>NLP</span><span>Intermediate</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>SQL & Data Analytics</span><span>Strong</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>Tools (TensorFlow, Azure ML, Power BI)</span><span>Working</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+    </div>
   </div>
 </section>
 
@@ -212,7 +267,12 @@ footer{
   <div class="glass section-dim">
     <h2>Contact</h2>
     <p>
-      Nuremberg, Germany<br><br>
+      If you’re interested in applied AI, data-driven systems, or potential collaboration,
+      I’d be happy to connect. I’m open to research discussions, internships, working student
+      roles, and AI-focused projects.
+      <br><br>
+      Currently based in Nuremberg, Germany.
+      <br><br>
       <a href="mailto:aayushsharma1710@gmail.com" style="color:white;text-decoration:none;">
         aayushsharma1710@gmail.com
       </a><br><br>
@@ -232,6 +292,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 </body>
 </html>
+
 
 
 
