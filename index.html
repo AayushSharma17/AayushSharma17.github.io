@@ -4,597 +4,311 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Aayush Sharma</title>
-<meta name="description" content="Aayush Sharma — M.Sc. Artificial Intelligence (FAU). Machine Learning, Data Analytics, Python." />
 
 <style>
-  :root{
-    --bg-dark:#02040a;
-    --text:rgba(255,255,255,.96);
-    --muted:rgba(210,220,240,.74);
-    --border:rgba(255,255,255,.14);
+:root{
+  --text:rgba(255,255,255,.96);
+  --muted:rgba(210,220,240,.75);
+  --border:rgba(255,255,255,.14);
+  --glass:rgba(10,14,28,.55);
+  --accentA:#8fbcd4;
+  --accentB:#9b8cd8;
+  --radius:18px;
+  --max:1100px;
+}
 
-    /* picked to match your hero image vibe */
-    --accentA:#8fbcd4;  /* icy blue */
-    --accentB:#9b8cd8;  /* galaxy violet */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:#02040a;
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-    --glass:rgba(10,14,28,.56);
-    --glass2:rgba(10,14,28,.72);
+/* ---------- GLOBAL BACKGROUND ---------- */
+.siteBg{
+  position:fixed;
+  inset:-8%;
+  z-index:-10;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.20) 45%, rgba(0,0,0,.78)),
+    url("hero-bg.jpg") center/cover no-repeat;
+  will-change:transform;
+}
 
-    --max:1100px;
-    --radius:18px;
-  }
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:50;
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  padding:18px;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+}
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+nav a:hover{color:var(--text)}
 
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    background:var(--bg-dark);
-    color:var(--text);
-    overflow-x:hidden;
-  }
+/* ---------- PAGE STRUCTURE ---------- */
+.pages{
+  height:100vh;
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+}
+.page{
+  min-height:100vh;
+  scroll-snap-align:start;
+  display:grid;
+  align-items:center;
+  padding:96px 18px 72px;
+  position:relative;
+}
+.page::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
 
-  /* ----- top nav ----- */
-  nav{
-    position:fixed;
-    top:0; left:0; right:0;
-    z-index:50;
-    display:flex;
-    justify-content:center;
-    gap:22px;
-    padding:18px 14px;
-    background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
-    backdrop-filter: blur(6px);
-  }
-  nav a{
-    color:var(--muted);
-    text-decoration:none;
-    font-size:13px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    padding:8px 10px;
-    border-radius:999px;
-    border:1px solid transparent;
-  }
-  nav a:hover{
-    color:var(--text);
-    border-color:rgba(255,255,255,.10);
-    background:rgba(255,255,255,.05);
-  }
+/* hero brighter */
+.hero::before{
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.10) 45%,
+    rgba(0,0,0,.45)
+  );
+}
 
-  /* ----- page-like scrolling (single page) ----- */
-  .pages{
-    height:100vh;
-    overflow-y:auto;
-    scroll-snap-type:y mandatory;
-  }
-  .page{
-    min-height:100vh;
-    scroll-snap-align:start;
-    position:relative;
-    display:grid;
-    align-items:center;
-    padding:96px 18px 72px; /* space for fixed nav */
-  }
+/* other pages dull */
+.page:not(.hero)::before{
+  background:
+    radial-gradient(900px 420px at 50% 20%, rgba(0,0,0,.35), rgba(0,0,0,.75)),
+    linear-gradient(to bottom, rgba(0,0,0,.78), rgba(0,0,0,.88));
+}
 
-  /* reduced motion support */
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto}
-    .pages{scroll-snap-type:none}
-    .reveal{opacity:1 !important; transform:none !important; transition:none !important}
-  }
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  position:relative;
+  z-index:2;
+}
 
-  /* ----- reusable layout ----- */
-  .container{max-width:var(--max); margin:0 auto; width:100%;}
-  .glass{
-    background:var(--glass);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 30px 90px rgba(0,0,0,.55);
-  }
-  .pad{padding:30px;}
-  .muted{color:var(--muted)}
-  .kicker{
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:var(--accentA);
-    margin:0 0 10px;
-  }
-  .title{
-    margin:0;
-    font-size: clamp(40px, 6vw, 84px);
-    letter-spacing:-.02em;
-    line-height:1.02;
-  }
-  .lead{
-    margin:18px 0 0;
-    font-size: clamp(16px, 1.55vw, 20px);
-    line-height:1.9;
-    color:var(--muted);
-    max-width: 70ch;
-    text-shadow: 0 1px 28px rgba(0,0,0,.55);
-  }
+/* ---------- HERO ---------- */
+.heroCard{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:44px 28px;
+  backdrop-filter:blur(14px);
+}
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:26px;
+  align-items:center;
+}
+.kicker{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accentA);
+}
+.title{
+  margin:6px 0 0;
+  font-size:clamp(44px,6vw,84px);
+  line-height:1.02;
+}
+.lead{
+  margin-top:18px;
+  font-size:18px;
+  line-height:1.9;
+  color:var(--muted);
+  max-width:65ch;
+}
+.btnrow{margin-top:26px; display:flex; gap:12px; flex-wrap:wrap}
+.btn{
+  padding:12px 16px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.35);
+  color:var(--text);
+  text-decoration:none;
+}
+.btn.primary{
+  border-color:var(--accentA);
+  background:linear-gradient(135deg, rgba(143,188,212,.25), rgba(155,140,216,.22));
+}
 
-  .btnrow{margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
-  .btn{
-    text-decoration:none;
-    color:var(--text);
-    padding:12px 16px;
-    border-radius:999px;
-    border:1px solid var(--border);
-    background:rgba(0,0,0,.35);
-    backdrop-filter: blur(10px);
-    font-size:14px;
-  }
-  .btn:hover{opacity:.92}
-  .btn.primary{
-    border-color: rgba(143,188,212,.55);
-    background: linear-gradient(135deg, rgba(143,188,212,.25), rgba(155,140,216,.22));
-    box-shadow: 0 0 0 1px rgba(143,188,212,.12) inset, 0 18px 50px rgba(143,188,212,.08);
-  }
+/* floating photo */
+.pfp{
+  width:150px;height:150px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(143,188,212,.25), transparent 55%),
+    url("profile.jpg") center/cover no-repeat;
+  box-shadow:0 30px 100px rgba(0,0,0,.7);
+  animation:floaty 5s ease-in-out infinite;
+}
+@keyframes floaty{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
 
-  /* ----- subtle reveal animation for content blocks ----- */
-  .reveal{
-    opacity:0;
-    transform: translateY(18px);
-    transition: opacity .75s ease, transform .75s ease;
-    will-change: opacity, transform;
-  }
-  .reveal.is-visible{opacity:1; transform:none;}
+/* ---------- CONTENT ---------- */
+.glass{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:32px;
+  backdrop-filter:blur(14px);
+}
+.split{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:28px;
+}
+.side{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.h2{
+  font-size:38px;
+  margin:0;
+}
+.chip{
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.25);
+  color:var(--muted);
+}
 
-  /* =========================================================
-     PAGE 1: HERO with REAL background + parallax + photo
-     ========================================================= */
-  .hero{
-    color:var(--text);
-    background:#000;
-    overflow:hidden;
-    isolation:isolate;
-  }
+footer{
+  margin-top:24px;
+  font-size:12px;
+  color:rgba(210,220,240,.55);
+  text-align:center;
+}
 
-  /* We render the hero image via a separate layer so we can parallax it */
-  .heroBg{
-    position:absolute;
-    inset:-8%;
-    z-index:0;
-    background:
-      linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.20) 45%, rgba(0,0,0,.78)),
-      url("hero-bg.jpg") center/cover no-repeat;
-    transform: translate3d(0,0,0);
-    will-change: transform;
-  }
-
-  /* extra “real” atmosphere tint matching your image */
-  .heroTint{
-    position:absolute;
-    inset:0;
-    z-index:-2;
-    pointer-events:none;
-    background:
-      radial-gradient(900px 420px at 65% 35%, rgba(155,140,216,.20), transparent 60%),
-      radial-gradient(900px 420px at 30% 55%, rgba(143,188,212,.16), transparent 62%);
-    mix-blend-mode: screen;
-    opacity:.85;
-  }
-  .hero .container{ position:relative; z-index:2; }
-  .heroTint{ z-index:1; }
-  .stars{ z-index:1; }
-
-  /* stars layer (subtle) */
-  .stars{
-    position:absolute;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-    background:
-      radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.75), transparent),
-      radial-gradient(1px 1px at 24% 64%, rgba(255,255,255,.45), transparent),
-      radial-gradient(1px 1px at 38% 32%, rgba(255,255,255,.65), transparent),
-      radial-gradient(1px 1px at 52% 58%, rgba(255,255,255,.35), transparent),
-      radial-gradient(1px 1px at 66% 22%, rgba(255,255,255,.55), transparent),
-      radial-gradient(1px 1px at 78% 70%, rgba(255,255,255,.45), transparent),
-      radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.35), transparent);
-    opacity:.8;
-    animation: twinkle 6s ease-in-out infinite;
-    mix-blend-mode: screen;
-  }
-  @keyframes twinkle{0%,100%{opacity:.62} 50%{opacity:.95}}
-
-  .heroCard{
-    position:relative;
-    max-width: 980px;
-    margin:0 auto;
-    padding:44px 28px;
-  }
-
-  .heroGrid{
-    display:grid;
-    grid-template-columns: 1.2fr .8fr;
-    gap:26px;
-    align-items:center;
-  }
-
-  /* floating profile photo */
-  .pfp{
-    width:150px;
-    height:150px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.20);
-    background:
-      radial-gradient(circle at 30% 20%, rgba(143,188,212,.22), transparent 55%),
-      url("profile.jpg") center/cover no-repeat;
-    box-shadow:
-      0 0 0 7px rgba(255,255,255,.03),
-      0 30px 100px rgba(0,0,0,.70);
-    animation: floaty 5.2s ease-in-out infinite;
-  }
-  @keyframes floaty{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
-  }
-
-  .heroAside{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    align-items:flex-start;
-  }
-  .mini{
-    width:100%;
-    padding:14px 14px;
-    border-radius:14px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(0,0,0,.28);
-    backdrop-filter: blur(12px);
-  }
-  .miniTitle{
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:rgba(210,220,240,.70);
-  }
-  .miniBig{margin-top:8px; font-weight:700}
-  .miniSmall{margin-top:6px; color:rgba(210,220,240,.70); font-size:14px}
-
-  .scrollCue{
-    margin-top:28px;
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    color:rgba(210,220,240,.75);
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    text-decoration:none;
-  }
-  .scrollCircle{
-    width:36px;height:36px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.16);
-    display:grid;
-    place-items:center;
-    background:rgba(0,0,0,.28);
-    backdrop-filter: blur(12px);
-  }
-  .scrollArrow{
-    width:7px;height:7px;
-    border-right:2px solid rgba(210,220,240,.80);
-    border-bottom:2px solid rgba(210,220,240,.80);
-    transform:rotate(45deg);
-    animation:bounce 1.6s ease-in-out infinite;
-  }
-  @keyframes bounce{
-    0%,100%{transform:translateY(0) rotate(45deg); opacity:.7}
-    50%{transform:translateY(6px) rotate(45deg); opacity:1}
-  }
-
-  /* =========================================================
-     PAGE 2/3/4 layout: split label + content (Anita vibe)
-     ========================================================= */
-  .split{
-    display:grid;
-    grid-template-columns: 260px 1fr;
-    gap:28px;
-    align-items:start;
-  }
-  .side{
-    color:rgba(210,220,240,.75);
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .side::after{
-    content:"";
-    height:2px;
-    flex:1;
-    background: rgba(143,188,212,.40);
-    border-radius:99px;
-  }
-
-  .card{
-    padding:30px;
-  }
-  .h2{
-    margin:0 0 10px;
-    font-size:38px;
-    letter-spacing:-.01em;
-  }
-
-  .cols{
-    margin-top:18px;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:14px;
-  }
-  .chip{
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:14px;
-    padding:12px 14px;
-    background:rgba(0,0,0,.22);
-    color:rgba(210,220,240,.80);
-  }
-
-  .list{
-    margin:14px 0 0 18px;
-    color:rgba(210,220,240,.74);
-  }
-  .list li{margin:8px 0}
-
-  .contactGrid{
-    display:grid;
-    grid-template-columns: 1.25fr .75fr;
-    gap:18px;
-    align-items:start;
-  }
-  .bigCall{
-    margin:0;
-    font-size: clamp(38px, 4.8vw, 62px);
-    line-height:1.06;
-    letter-spacing:-.02em;
-  }
-  .contactBox{
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:16px;
-    background:rgba(0,0,0,.24);
-    padding:18px;
-  }
-  .label{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:rgba(210,220,240,.70)}
-  .value{margin-top:8px; font-size:18px}
-
-  footer{
-    padding:26px 18px 50px;
-    text-align:center;
-    color:rgba(210,220,240,.55);
-    font-size:12px;
-  }
-
-  /* responsive */
-  @media (max-width: 920px){
-    .heroGrid{grid-template-columns:1fr}
-    .split{grid-template-columns:1fr}
-    .cols{grid-template-columns:1fr}
-    .contactGrid{grid-template-columns:1fr}
-    .heroCard{padding:34px 18px}
-  }
+/* responsive */
+@media(max-width:900px){
+  .heroGrid,.split{grid-template-columns:1fr}
+}
 </style>
 </head>
 
 <body>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-  </nav>
 
-  <div class="pages" id="pages">
-    <!-- PAGE 1 -->
-    <section id="home" class="page hero">
-      <div class="heroBg" id="heroBg" aria-hidden="true"></div>
-      <div class="heroTint" aria-hidden="true"></div>
-      <div class="stars" aria-hidden="true"></div>
+<div class="siteBg" id="siteBg"></div>
 
-      <div class="container">
-        <div class="heroCard glass reveal">
-          <div class="heroGrid">
-            <div>
-              <p class="kicker">Artificial Intelligence · Machine Learning · Data Analytics</p>
-              <h1 class="title">I’m Aayush Sharma.</h1>
-              <p class="lead">
-                M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with experience in machine learning,
-                data analytics, and Python-based automation. I build practical AI systems for real-world use.
-              </p>
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</nav>
 
-              <div class="btnrow">
-                <a class="btn primary" href="#work">View Work</a>
-                <a class="btn" href="https://www.linkedin.com/in/aayush-sharma-17102000/" target="_blank" rel="noreferrer">LinkedIn</a>
-                <a class="btn" href="https://github.com/AayushSharma17" target="_blank" rel="noreferrer">GitHub</a>
-                <span class="btn" style="pointer-events:none; opacity:.9;">Nuremberg, Germany</span>
-              </div>
+<div class="pages" id="pages">
 
-              <a class="scrollCue" href="#about">
-                <span class="scrollCircle"><span class="scrollArrow"></span></span>
-                Scroll Down
-              </a>
-            </div>
-
-            <div class="heroAside">
-              <div class="pfp" aria-label="Profile photo"></div>
-
-              <div class="mini">
-                <div class="miniTitle">Focus</div>
-                <div class="miniBig">Applied AI &amp; ML</div>
-                <div class="miniSmall">ML · NLP · Data Analytics</div>
-              </div>
-
-              <div class="mini">
-                <div class="miniTitle">Tools</div>
-                <div class="miniBig">Python · SQL · Power BI</div>
-                <div class="miniSmall">TensorFlow · Azure ML · REST APIs</div>
-              </div>
-
-              <div class="mini">
-                <div class="miniTitle">Languages</div>
-                <div class="miniBig">English (C1)</div>
-                <div class="miniSmall">German (A2 → B1/B2)</div>
-              </div>
-            </div>
-
+<!-- PAGE 1 -->
+<section id="home" class="page hero">
+  <div class="container">
+    <div class="heroCard">
+      <div class="heroGrid">
+        <div>
+          <p class="kicker">Artificial Intelligence · Machine Learning · Data Analytics</p>
+          <h1 class="title">I’m Aayush Sharma.</h1>
+          <p class="lead">
+            M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg.
+            I build practical AI systems and data-driven solutions.
+          </p>
+          <div class="btnrow">
+            <a class="btn primary" href="#work">View Work</a>
+            <a class="btn" href="https://www.linkedin.com/in/aayush-sharma-17102000/" target="_blank">LinkedIn</a>
+            <a class="btn" href="https://github.com/AayushSharma17" target="_blank">GitHub</a>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- PAGE 2 -->
-    <section id="about" class="page">
-      <div class="container">
-        <div class="split">
-          <div class="side reveal">About</div>
-
-          <div class="glass card reveal">
-            <h2 class="h2">About Me</h2>
-            <p class="lead" style="margin-top:10px;">
-              I’m a Master’s student in Artificial Intelligence at FAU with a background in computer science and applied analytics.
-              I enjoy turning messy data into reliable, decision-ready insights and building practical ML systems.
-            </p>
-
-            <div class="cols">
-              <div class="chip">Interested in: applied ML, NLP, analytics engineering</div>
-              <div class="chip">Strengths: clean Python, reproducible analysis, stakeholder communication</div>
-              <div class="chip">Currently: deepening skills in deep learning &amp; NLP at FAU</div>
-              <div class="chip">Location: Nuremberg (open to work across Germany)</div>
-            </div>
-          </div>
+        <div>
+          <div class="pfp"></div>
         </div>
       </div>
-    </section>
-
-    <!-- PAGE 3 -->
-    <section id="work" class="page">
-      <div class="container">
-        <div class="split">
-          <div class="side reveal">Work</div>
-
-          <div class="glass card reveal">
-            <h2 class="h2">Experience & Projects</h2>
-
-            <p class="muted" style="margin:6px 0 0;">
-              A quick, recruiter-friendly overview. (We can expand each item later.)
-            </p>
-
-            <div style="margin-top:18px;">
-              <div class="chip" style="margin-bottom:12px;">
-                <strong>Associate Engineer — ElasticRun</strong> <span class="muted">· Apr 2023 – Oct 2023</span><br/>
-                <span class="muted">Python server-side logic · SQL reporting · automation · stakeholder collaboration</span>
-              </div>
-
-              <div class="chip" style="margin-bottom:12px;">
-                <strong>Data Science Intern — Celebal Technologies</strong> <span class="muted">· Jul 2022 – Aug 2022</span><br/>
-                <span class="muted">Data cleaning · predictive modeling · visualization for stakeholders</span>
-              </div>
-
-              <div class="chip">
-                <strong>Selected Projects</strong>
-                <ul class="list">
-                  <li>Sentiment Analysis (NLP): neural text classifier for feedback insights</li>
-                  <li>AI Use-Case Evaluation: study of LLM tools (ChatGPT/Copilot) in workflows</li>
-                  <li>Weather Prediction: statistical + ML forecasting approach</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="cols" style="margin-top:16px;">
-              <div class="chip"><strong>Core:</strong> Python, SQL, ML, NLP</div>
-              <div class="chip"><strong>Tools:</strong> TensorFlow, Azure ML, Power BI</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 4 -->
-    <section id="contact" class="page">
-      <div class="container">
-        <div class="split">
-          <div class="side reveal">Contact</div>
-
-          <div class="glass card reveal">
-            <div class="contactGrid">
-              <div>
-                <p class="bigCall">Got a collaboration idea, thesis topic, or project?</p>
-                <p class="lead" style="margin-top:14px;">
-                  I’m interested in applied AI/ML, analytics, and building practical systems with measurable impact.
-                </p>
-              </div>
-
-              <div class="contactBox">
-                <div class="label">Email</div>
-                <div class="value"><a href="mailto:aayushsharma1710@gmail.com" style="color:var(--text); text-decoration:none;">aayushsharma1710@gmail.com</a></div>
-
-                <div style="height:14px"></div>
-                <div class="label">Links</div>
-                <div class="value" style="font-size:16px; line-height:1.6;">
-                  <a href="https://www.linkedin.com/in/aayush-sharma-17102000/" target="_blank" rel="noreferrer" style="color:var(--text); text-decoration:none;">LinkedIn</a><br/>
-                  <a href="https://github.com/AayushSharma17" target="_blank" rel="noreferrer" style="color:var(--text); text-decoration:none;">GitHub</a>
-                </div>
-
-                <div style="height:14px"></div>
-                <div class="label">Location</div>
-                <div class="value muted" style="font-size:16px;">Nuremberg, Germany</div>
-              </div>
-            </div>
-
-            <footer>
-              © <span id="year"></span> Aayush Sharma
-            </footer>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="about" class="page">
+  <div class="container split">
+    <div class="side">About</div>
+    <div class="glass">
+      <h2 class="h2">About Me</h2>
+      <p class="lead">
+        I focus on applied machine learning, NLP, and analytics.
+        My strength is turning complex data into clean, useful systems.
+      </p>
+      <div class="chip">Python · ML · NLP · SQL · Power BI</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section id="work" class="page">
+  <div class="container split">
+    <div class="side">Work</div>
+    <div class="glass">
+      <h2 class="h2">Experience</h2>
+      <div class="chip">Associate Engineer — ElasticRun</div>
+      <div class="chip">Data Science Intern — Celebal Technologies</div>
+      <div class="chip">Projects: Sentiment Analysis · LLM Use-Cases · Forecasting</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section id="contact" class="page">
+  <div class="container split">
+    <div class="side">Contact</div>
+    <div class="glass">
+      <h2 class="h2">Let’s Talk</h2>
+      <p class="lead">Nuremberg, Germany</p>
+      <p class="lead">
+        <a href="mailto:aayushsharma1710@gmail.com" style="color:var(--text);text-decoration:none;">
+          aayushsharma1710@gmail.com
+        </a>
+      </p>
+      <footer>© 2026 Aayush Sharma</footer>
+    </div>
+  </div>
+</section>
+
+</div>
 
 <script>
-  // year
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // reveal on scroll (for cards inside each page)
-  const revealEls = document.querySelectorAll(".reveal");
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("is-visible"); });
-  }, { threshold: 0.18 });
-  revealEls.forEach(el => io.observe(el));
-
-  // Parallax (scroll + mouse) for hero background
-  const pages = document.getElementById("pages");
-  const heroBg = document.getElementById("heroBg");
-
-  function onScrollParallax(){
-    if(!heroBg) return;
-    const y = pages.scrollTop || 0;
-    // subtle movement only (professional)
-    const shift = Math.min(60, y * 0.18);
-    heroBg.style.transform = `translate3d(0, ${shift}px, 0) scale(1.02)`;
-  }
-  pages.addEventListener("scroll", onScrollParallax, {passive:true});
-  onScrollParallax();
-
-  // mouse parallax (very subtle)
-  let mx = 0, my = 0;
-  window.addEventListener("mousemove", (e) => {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    mx = (e.clientX - cx) / cx;
-    my = (e.clientY - cy) / cy;
-    if(!heroBg) return;
-    heroBg.style.transform = `translate3d(${mx * -10}px, ${my * -8 + Math.min(60, (pages.scrollTop||0)*0.18)}px, 0) scale(1.03)`;
-  }, {passive:true});
+/* simple parallax */
+const pages=document.getElementById("pages");
+const bg=document.getElementById("siteBg");
+pages.addEventListener("scroll",()=>{
+  const y=pages.scrollTop;
+  bg.style.transform=`translateY(${y*0.15}px)`;
+},{passive:true});
 </script>
+
 </body>
 </html>
+
 
 
