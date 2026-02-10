@@ -3,326 +3,235 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Aayush Sharma | Portfolio</title>
-<meta name="description" content="Aayush Sharma — M.Sc. Artificial Intelligence Resume" />
+<title>Aayush Sharma</title>
 
 <style>
-  :root {
-    --primary-dark: #111111;
-    --accent: #00b4b4; /* Teal accent like the screenshot */
-    --text-light: rgba(255,255,255,0.9);
-    --text-dark: #333333;
-    --bg-gray: #f9f9f9;
-    --border: #eeeeee;
-  }
+:root{
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.72);
+  --accent:#00b4b4;
+  --dark:rgba(0,0,0,.65);
+  --glass:rgba(20,20,25,.55);
+  --border:rgba(255,255,255,.14);
+  --max:1100px;
+}
 
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--primary-dark);
-    color: var(--text-light);
-    line-height: 1.6;
-  }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text);
+  background:#000;
+}
 
-  /* 1. HERO SECTION */
-  .hero {
-    height: 100vh;
-    width: 100%;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("hero-bg.jpg") center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-  }
+/* ===== GLOBAL BACKGROUND ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.75)),
+    url("hero-bg.jpg") center/cover no-repeat;
+}
 
-  .hero h1 {
-    font-size: clamp(40px, 8vw, 80px);
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-weight: 800;
-  }
+/* ===== NAV ===== */
+nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:10;
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  padding:20px;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), transparent);
+}
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+nav a:hover{color:var(--text)}
 
-  .hero p {
-    font-size: 18px;
-    letter-spacing: 2px;
-    margin-top: 10px;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:120px 20px 80px;
+}
+.hero h1{
+  font-size:clamp(44px,7vw,96px);
+  margin:0;
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+.hero p{
+  margin-top:18px;
+  font-size:20px;
+  letter-spacing:.08em;
+  color:var(--accent);
+  text-transform:uppercase;
+}
 
-  .scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    animation: bounce 2s infinite;
-    font-size: 24px;
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
-  }
+/* floating profile photo */
+.avatar{
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:url("profile.jpg") center/cover no-repeat;
+  margin:30px auto 0;
+  border:3px solid rgba(255,255,255,.2);
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
 
-  /* 2. ABOUT & RESUME CONTAINER */
-  .content-wrapper {
-    background: white;
-    color: var(--text-dark);
-    max-width: 1100px;
-    margin: -60px auto 40px;
-    position: relative;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
+/* ===== SECTIONS ===== */
+section{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:120px 20px;
+}
+.glass{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:50px;
+  backdrop-filter:blur(14px);
+}
 
-  /* SIDEBAR (Dark Section) */
-  .sidebar {
-    background: #1a1a1a;
-    color: white;
-    padding: 60px 40px;
-  }
+/* darker overlay for non-hero */
+.section-dim{
+  background:rgba(0,0,0,.45);
+  border-radius:18px;
+}
 
-  .pfp-container {
-    text-align: center;
-    margin-bottom: 40px;
-  }
+/* headings */
+h2{
+  margin:0 0 18px;
+  font-size:36px;
+}
+p{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.9;
+}
 
-  .pfp {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background: url("profile.jpg") center/cover no-repeat;
-    border: 5px solid #222;
-    margin: 0 auto;
-  }
+/* grids */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+.card{
+  padding:28px;
+  border-radius:14px;
+  background:rgba(0,0,0,.35);
+  border:1px solid var(--border);
+}
 
-  .sidebar h3 {
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: var(--accent);
-    margin-top: 40px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
-  }
+/* footer */
+footer{
+  text-align:center;
+  padding:60px 20px;
+  color:rgba(255,255,255,.5);
+  font-size:13px;
+}
 
-  .contact-item {
-    margin-bottom: 15px;
-    font-size: 14px;
-  }
-
-  .contact-item span {
-    display: block;
-    color: #888;
-    font-size: 12px;
-    text-transform: uppercase;
-  }
-
-  /* Progress Bars */
-  .skill-unit { margin-bottom: 20px; }
-  .skill-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-  }
-  .bar-bg {
-    height: 4px;
-    background: #333;
-    width: 100%;
-  }
-  .bar-fill {
-    height: 100%;
-    background: var(--accent);
-  }
-
-  /* MAIN CONTENT (White Section) */
-  .main-info {
-    padding: 60px;
-    background: white;
-  }
-
-  .section-group {
-    margin-bottom: 50px;
-    display: grid;
-    grid-template-columns: 180px 1fr;
-  }
-
-  .section-label {
-    font-weight: 800;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #999;
-    letter-spacing: 1px;
-  }
-
-  .history-item { margin-bottom: 35px; }
-  .history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 5px;
-  }
-  .job-title { font-weight: 700; font-size: 18px; color: #000; }
-  .date { color: var(--accent); font-weight: 600; font-size: 13px; }
-  .company { font-style: italic; color: #666; display: block; margin-bottom: 10px; }
-  .desc { font-size: 15px; color: #555; }
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-10px);}
-    60% {transform: translateY(-5px);}
-  }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    .content-wrapper { grid-template-columns: 1fr; margin-top: 0; }
-    .section-group { grid-template-columns: 1fr; }
-    .section-label { margin-bottom: 20px; }
-    .main-info { padding: 40px 25px; }
-  }
+/* responsive */
+@media(max-width:800px){
+  section{padding:90px 20px}
+  .glass{padding:34px}
+}
 </style>
 </head>
 
 <body>
 
-  <section class="hero">
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<header id="home" class="hero">
+  <div>
     <h1>Aayush Sharma</h1>
-    <p>M.Sc. Artificial Intelligence • ML Developer</p>
-    <a href="#resume" class="scroll-indicator">↓</a>
-  </section>
-
-  <div class="content-wrapper" id="resume">
-    
-    <aside class="sidebar">
-      <div class="pfp-container">
-        <div class="pfp"></div>
-      </div>
-
-      <h3>Contact</h3>
-      <div class="contact-item">
-        <span>Email</span>
-        aayushsharma1710@gmail.com
-      </div>
-      <div class="contact-item">
-        <span>Location</span>
-        Nuremberg, Germany
-      </div>
-      <div class="contact-item">
-        <span>Social</span>
-        <a href="https://linkedin.com/in/aayush-sharma-17102000/" style="color:white; text-decoration:none;">LinkedIn</a> / 
-        <a href="https://github.com/AayushSharma17" style="color:white; text-decoration:none;">GitHub</a>
-      </div>
-
-      <h3>Technical Skills</h3>
-      
-      <div class="skill-unit">
-        <div class="skill-label"><span>Python</span><span>90%</span></div>
-        <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
-      </div>
-
-      <div class="skill-unit">
-        <div class="skill-label"><span>SQL & Data</span><span>85%</span></div>
-        <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
-      </div>
-
-      <div class="skill-unit">
-        <div class="skill-label"><span>Machine Learning</span><span>80%</span></div>
-        <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
-      </div>
-
-      <div class="skill-unit">
-        <div class="skill-label"><span>NLP</span><span>75%</span></div>
-        <div class="bar-bg"><div class="bar-fill" style="width: 75%;"></div></div>
-      </div>
-
-      <h3>Languages</h3>
-      <p style="font-size: 14px; color:#ccc">English (C1 - Fluent)<br>German (A2/B1 - Learner)</p>
-    </aside>
-
-    <main class="main-info">
-      
-      <div class="section-group">
-        <div class="section-label">About Me</div>
-        <div class="desc">
-          I am an AI Master's student at FAU Erlangen–Nürnberg with a passion for building practical, 
-          real-world machine learning systems. With a background in Computer Science and industry 
-          experience in automation and data analytics, I specialize in turning complex data into 
-          actionable insights.
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-label">Work Experience</div>
-        <div>
-          <div class="history-item">
-            <div class="history-header">
-              <span class="job-title">Associate Engineer</span>
-              <span class="date">2023 - 2023</span>
-            </div>
-            <span class="company">ElasticRun</span>
-            <div class="desc">Engineered server-side logic in Python and optimized SQL reporting systems. Streamlined stakeholder workflows through targeted automation.</div>
-          </div>
-
-          <div class="history-item">
-            <div class="history-header">
-              <span class="job-title">Data Science Intern</span>
-              <span class="date">2022 - 2022</span>
-            </div>
-            <span class="company">Celebal Technologies</span>
-            <div class="desc">Applied predictive modeling and advanced data cleaning techniques to support business decision-making.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-label">Education</div>
-        <div>
-          <div class="history-item">
-            <div class="history-header">
-              <span class="job-title">M.Sc. Artificial Intelligence</span>
-              <span class="date">Present</span>
-            </div>
-            <span class="company">FAU Erlangen–Nürnberg</span>
-          </div>
-          <div class="history-item">
-            <div class="history-header">
-              <span class="job-title">B.Tech. Computer Science</span>
-              <span class="date">Completed 2023</span>
-            </div>
-            <span class="company">Amity University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-label">Selected Projects</div>
-        <div>
-          <div class="history-item">
-            <span class="job-title">Sentiment Analysis NLP</span>
-            <div class="desc">Developing neural classifiers to process large-scale feedback data.</div>
-          </div>
-          <div class="history-item">
-            <span class="job-title">Weather Prediction ML</span>
-            <div class="desc">Hybrid statistical models for high-accuracy local forecasting.</div>
-          </div>
-        </div>
-      </div>
-
-      <footer style="margin-top:40px; font-size:12px; color:#bbb; border-top: 1px solid #eee; padding-top: 20px;">
-        &copy; <span id="year"></span> Aayush Sharma • Nuremberg, Germany
-      </footer>
-    </main>
-
+    <p>Artificial Intelligence · Machine Learning</p>
+    <div class="avatar"></div>
   </div>
+</header>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<!-- ABOUT -->
+<section id="about">
+  <div class="glass section-dim">
+    <h2>About</h2>
+    <p>
+      I’m an M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg with a background in
+      computer science and applied data analytics. I enjoy building practical ML systems that
+      translate complex data into meaningful, real-world outcomes.
+    </p>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="glass section-dim">
+    <h2>Work & Focus</h2>
+    <div class="grid">
+      <div class="card">
+        <strong>Associate Engineer</strong><br>
+        <span class="muted">ElasticRun</span>
+        <p>Python backend logic, SQL analytics, automation for business workflows.</p>
+      </div>
+      <div class="card">
+        <strong>Data Science Intern</strong><br>
+        <span class="muted">Celebal Technologies</span>
+        <p>Predictive modeling, data cleaning, stakeholder-ready insights.</p>
+      </div>
+      <div class="card">
+        <strong>Projects</strong>
+        <p>NLP sentiment analysis, ML forecasting, AI use-case evaluation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="glass section-dim">
+    <h2>Contact</h2>
+    <p>
+      Nuremberg, Germany<br><br>
+      <a href="mailto:aayushsharma1710@gmail.com" style="color:white;text-decoration:none;">
+        aayushsharma1710@gmail.com
+      </a><br><br>
+      <a href="https://linkedin.com/in/aayush-sharma-17102000/" target="_blank">LinkedIn</a> ·
+      <a href="https://github.com/AayushSharma17" target="_blank">GitHub</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Aayush Sharma
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
+
 
 
